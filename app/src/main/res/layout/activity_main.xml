@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_nature"
+    android:fitsSystemWindows="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingHorizontal="28dp"
+        android:paddingTop="24dp"
+        android:paddingBottom="20dp">
+
+        <!-- Brand header -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fontFamily="serif"
+            android:gravity="center"
+            android:letterSpacing="0.35"
+            android:text="@string/app_name"
+            android:textAllCaps="true"
+            android:textColor="@color/accent_gold"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:alpha="0.85"
+            android:gravity="center"
+            android:letterSpacing="0.12"
+            android:text="@string/verse_of_the_day"
+            android:textAllCaps="true"
+            android:textColor="@color/text_on_image_dim"
+            android:textSize="11sp" />
+
+        <!-- Centered verse block -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
+                android:alpha="0.55"
+                android:fontFamily="serif"
+                android:text="“"
+                android:textColor="@color/accent_gold"
+                android:textSize="72sp" />
+
+            <TextView
+                android:id="@+id/verseText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="serif"
+                android:gravity="center"
+                android:lineSpacingMultiplier="1.25"
+                android:shadowColor="#99000000"
+                android:shadowDx="0"
+                android:shadowDy="2"
+                android:shadowRadius="8"
+                android:text="@string/app_name"
+                android:textColor="@color/text_on_image"
+                android:textSize="26sp"
+                android:textStyle="italic" />
+
+            <TextView
+                android:id="@+id/verseReference"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="22dp"
+                android:fontFamily="serif"
+                android:gravity="center"
+                android:letterSpacing="0.05"
+                android:shadowColor="#99000000"
+                android:shadowDx="0"
+                android:shadowDy="2"
+                android:shadowRadius="6"
+                android:text=""
+                android:textColor="@color/accent_gold"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <!-- Actions -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:baselineAligned="false"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/anotherButton"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="6dp"
+                android:layout_weight="1"
+                android:paddingHorizontal="4dp"
+                android:text="@string/another_verse"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                app:icon="@drawable/ic_refresh"
+                app:iconPadding="4dp"
+                app:iconSize="18dp"
+                app:iconTint="@color/white"
+                app:rippleColor="@color/accent_gold"
+                app:strokeColor="@color/white" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/browseButton"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="6dp"
+                android:layout_weight="1"
+                android:paddingHorizontal="4dp"
+                android:text="@string/browse"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                app:icon="@drawable/ic_browse"
+                app:iconPadding="4dp"
+                app:iconSize="18dp"
+                app:iconTint="@color/white"
+                app:rippleColor="@color/accent_gold"
+                app:strokeColor="@color/white" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/shareButton"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingHorizontal="4dp"
+                android:text="@string/share"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                app:icon="@drawable/ic_share"
+                app:iconPadding="4dp"
+                app:iconSize="18dp"
+                app:iconTint="@color/white"
+                app:rippleColor="@color/accent_gold"
+                app:strokeColor="@color/white" />
+        </LinearLayout>
+
+        <!-- KJV is public domain; a short courtesy attribution. -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:alpha="0.7"
+            android:gravity="center"
+            android:text="@string/scripture_attribution"
+            android:textColor="@color/text_on_image_dim"
+            android:textSize="9sp" />
+    </LinearLayout>
+</FrameLayout>

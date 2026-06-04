@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/sky_top"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingHorizontal="24dp"
+        android:paddingTop="20dp"
+        android:paddingBottom="12dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="serif"
+            android:letterSpacing="0.04"
+            android:text="@string/browse_title"
+            android:textColor="@color/text_on_image"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:alpha="0.8"
+            android:text="@string/browse_subtitle"
+            android:textColor="@color/text_on_image_dim"
+            android:textSize="13sp" />
+    </LinearLayout>
+
+    <ExpandableListView
+        android:id="@+id/topicList"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:childDivider="#14FFFFFF"
+        android:divider="#26FFFFFF"
+        android:dividerHeight="1dp"
+        android:groupIndicator="@null"
+        android:paddingBottom="16dp"
+        android:scrollbarStyle="outsideOverlay" />
+</LinearLayout>

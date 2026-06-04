@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Layered rolling hills silhouette. Sky area is transparent so the
+     gradient/sun layers below show through. Drawn on a 100x100 grid. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="360dp"
+    android:height="360dp"
+    android:viewportWidth="100"
+    android:viewportHeight="100">
+
+    <path
+        android:fillColor="@color/hill_far"
+        android:pathData="M0,62 C20,55 35,61 50,58 C70,54 85,63 100,58 L100,100 L0,100 Z" />
+    <path
+        android:fillColor="@color/hill_mid"
+        android:pathData="M0,74 C18,68 31,73 48,70 C68,66 82,74 100,70 L100,100 L0,100 Z" />
+    <path
+        android:fillColor="@color/hill_near"
+        android:pathData="M0,84 C22,79 38,87 55,83 C72,79 86,86 100,83 L100,100 L0,100 Z" />
+    <path
+        android:fillColor="@color/hill_front"
+        android:pathData="M0,93 C25,89 41,96 60,92 C78,89 91,95 100,93 L100,100 L0,100 Z" />
+</vector>

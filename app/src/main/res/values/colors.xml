@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <!-- Promises brand / nature palette -->
+    <color name="sky_top">#FF1B3A5B</color>
+    <color name="sky_mid">#FF3D6E9C</color>
+    <color name="sky_glow">#FFE8B765</color>
+    <color name="sky_bottom">#FFF6D79A</color>
+    <color name="sun">#FFFFE9B0</color>
+    <color name="hill_far">#FF6F9E7A</color>
+    <color name="hill_mid">#FF4C7B5C</color>
+    <color name="hill_near">#FF2F5740</color>
+    <color name="hill_front">#FF1E3A2A</color>
+
+    <color name="scrim">#73000000</color>
+    <color name="text_on_image">#FFFFFFFF</color>
+    <color name="text_on_image_dim">#E6FFFFFF</color>
+    <color name="accent_gold">#FFFFD27F</color>
+</resources>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Full-bleed nature scene: sunrise sky gradient, a glowing sun, layered
+     hills, and a readability scrim so light text stays legible. -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Sky gradient (top dusk blue -> warm horizon glow). -->
+    <item>
+        <shape android:shape="rectangle">
+            <gradient
+                android:type="linear"
+                android:angle="270"
+                android:startColor="@color/sky_top"
+                android:centerColor="@color/sky_mid"
+                android:endColor="@color/sky_glow" />
+        </shape>
+    </item>
+
+    <!-- Glowing sun, kept circular and anchored toward the upper sky. -->
+    <item
+        android:width="240dp"
+        android:height="240dp"
+        android:top="72dp"
+        android:gravity="top|center_horizontal"
+        android:drawable="@drawable/sun_glow" />
+
+    <!-- Rolling hills silhouette anchored to the bottom. -->
+    <item
+        android:gravity="bottom|fill_horizontal"
+        android:drawable="@drawable/nature_hills" />
+
+    <!-- Scrim for text contrast: subtle at top, gentle in the middle. -->
+    <item>
+        <shape android:shape="rectangle">
+            <gradient
+                android:type="linear"
+                android:angle="270"
+                android:startColor="#59000000"
+                android:centerColor="#3D000000"
+                android:endColor="#26000000" />
+        </shape>
+    </item>
+</layer-list>

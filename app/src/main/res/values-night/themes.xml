@@ -1,0 +1,18 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- The nature background already reads well in dark environments,
+         so night mode shares the same full-screen treatment. -->
+    <style name="Theme.Promises" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/hill_near</item>
+        <item name="colorPrimaryVariant">@color/hill_front</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorSecondary">@color/accent_gold</item>
+        <item name="colorSecondaryVariant">@color/sky_glow</item>
+        <item name="colorOnSecondary">@color/black</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:windowBackground">@color/sky_top</item>
+    </style>
+
+    <style name="Theme.MyApplication" parent="Theme.Promises" />
+</resources>

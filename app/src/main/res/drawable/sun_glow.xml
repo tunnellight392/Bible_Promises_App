@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Soft glowing sun: bright center fading to transparent at the edge. -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="oval">
+    <gradient
+        android:type="radial"
+        android:gradientRadius="55%p"
+        android:startColor="#FFFFF7DD"
+        android:centerColor="#FFFFE6A6"
+        android:endColor="#00FFE6A6" />
+</shape>
