@@ -1,4 +1,4 @@
-package com.dailypromise.myapplication;
+package com.tunnellight.biblepromise;
 
 import android.content.Context;
 
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
     public void useAppContext() {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
-        assertEquals("com.dailypromise.myapplication", appContext.getPackageName());
+        assertEquals("com.tunnellight.biblepromise", appContext.getPackageName());
     }
 }

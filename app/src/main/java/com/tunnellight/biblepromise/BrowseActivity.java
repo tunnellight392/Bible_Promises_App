@@ -1,4 +1,4 @@
-package com.dailypromise.myapplication;
+package com.tunnellight.biblepromise;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,7 +17,7 @@ import java.util.List;
 public class BrowseActivity extends AppCompatActivity {
 
     /** Extra carrying the chosen verse's global index back to MainActivity. */
-    static final String EXTRA_VERSE_INDEX = "com.dailypromise.myapplication.VERSE_INDEX";
+    static final String EXTRA_VERSE_INDEX = "com.tunnellight.biblepromise.VERSE_INDEX";
 
     private final VerseRepository repository = new VerseRepository();
 

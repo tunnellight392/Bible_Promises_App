@@ -1,4 +1,4 @@
-package com.dailypromise.myapplication;
+package com.tunnellight.biblepromise;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -17,7 +17,7 @@ final class VerseRepository {
 
     private static final List<Topic> TOPICS = buildTopics();
     /** Every verse, in topic order; index here is the stable "global" id. */
-    private static final List<Verse> ALL = flatten(TOPICS);
+    private static final List<Verse> ALL = flatten();
 
     private final Random random = new Random();
 
@@ -70,9 +70,9 @@ final class VerseRepository {
 
     // ---- Data --------------------------------------------------------------
 
-    private static List<Verse> flatten(List<Topic> topics) {
+    private static List<Verse> flatten() {
         List<Verse> all = new ArrayList<>();
-        for (Topic topic : topics) {
+        for (Topic topic : TOPICS) {
             all.addAll(topic.verses);
         }
         return Collections.unmodifiableList(all);

@@ -1,4 +1,4 @@
-package com.dailypromise.myapplication;
+package com.tunnellight.biblepromise;
 
 import org.junit.Test;
 
