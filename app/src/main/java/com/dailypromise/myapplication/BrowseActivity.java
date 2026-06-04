@@ -106,9 +106,10 @@ public class BrowseActivity extends AppCompatActivity {
                     : inflater.inflate(R.layout.list_child, parent, false);
 
             Verse verse = getChild(groupPosition, childPosition);
-            ((TextView) row.findViewById(R.id.childText)).setText("“" + verse.text + "”");
+            ((TextView) row.findViewById(R.id.childText))
+                    .setText(getString(R.string.quoted_verse_format, verse.text));
             ((TextView) row.findViewById(R.id.childReference))
-                    .setText("— " + verse.reference + " (WEB)");
+                    .setText(getString(R.string.verse_reference_format, verse.reference));
             return row;
         }
 
