@@ -1,6 +1,11 @@
 <resources>
     <string name="app_name">Promises</string>
     <string name="verse_of_the_day">Promise of the Day</string>
+    <string name="decorative_quote">“</string>
+    <!-- %1$s = verse reference, e.g. "Psalm 23:1" -->
+    <string name="verse_reference_format">— %1$s (WEB)</string>
+    <!-- %1$s = verse text -->
+    <string name="quoted_verse_format">“%1$s”</string>
     <string name="another_verse">Another</string>
     <string name="browse">Browse</string>
     <string name="share">Share</string>

@@ -1,12 +1,17 @@
 package com.dailypromise.myapplication;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.GestureDetector;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.TextView;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.button.MaterialButton;
@@ -14,16 +19,22 @@ import com.google.android.material.button.MaterialButton;
 import java.time.LocalDate;
 
 /**
- * Promises — shows a daily uplifting NIV verse over a nature background.
- * The verse is stable for the whole day; "Another verse" reveals more, and
- * "Share" passes the current verse to other apps.
+ * Promises — shows a daily uplifting WEB verse over a nature background.
+ * The verse is stable for the whole day; swipe left/right to move between
+ * verses, "Another" jumps to a random one, "Browse" opens the topic list,
+ * and "Share" passes the current verse to other apps.
  */
 public class MainActivity extends AppCompatActivity {
+
+    /** Minimum horizontal travel / speed for a swipe to count (in px). */
+    private static final float SWIPE_MIN_DISTANCE = 100f;
+    private static final float SWIPE_MIN_VELOCITY = 120f;
 
     private final VerseRepository repository = new VerseRepository();
 
     private TextView verseText;
     private TextView verseReference;
+    private View verseBlock;
     private int currentIndex;
 
     /** Receives the verse chosen on the Browse screen and displays it. */
@@ -38,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
 
         verseText = findViewById(R.id.verseText);
         verseReference = findViewById(R.id.verseReference);
+        verseBlock = findViewById(R.id.verseBlock);
         MaterialButton anotherButton = findViewById(R.id.anotherButton);
         MaterialButton browseButton = findViewById(R.id.browseButton);
         MaterialButton shareButton = findViewById(R.id.shareButton);
@@ -61,11 +74,24 @@ public class MainActivity extends AppCompatActivity {
                 browseLauncher.launch(new Intent(this, BrowseActivity.class)));
 
         shareButton.setOnClickListener(v -> shareVerse(repository.get(currentIndex)));
+
+        // Swipe left/right anywhere on the screen to move between verses.
+        GestureDetector gestureDetector = new GestureDetector(this, new SwipeListener());
+        findViewById(R.id.rootView).setOnTouchListener(
+                (v, event) -> gestureDetector.onTouchEvent(event));
+    }
+
+    /** Steps to the next (+1) or previous (-1) verse, wrapping around. */
+    private void navigate(int direction) {
+        int size = repository.size();
+        currentIndex = ((currentIndex + direction) % size + size) % size;
+        bindVerse(repository.get(currentIndex), false);
+        slideIn(verseBlock, direction);
     }
 
     private void bindVerse(Verse verse, boolean animate) {
         verseText.setText(verse.text);
-        verseReference.setText("— " + verse.reference + " (WEB)");
+        verseReference.setText(getString(R.string.verse_reference_format, verse.reference));
 
         if (animate) {
             crossFadeIn(verseText);
@@ -76,6 +102,41 @@ public class MainActivity extends AppCompatActivity {
     private void crossFadeIn(View view) {
         view.setAlpha(0f);
         view.animate().alpha(1f).setDuration(450).start();
+    }
+
+    /** Slides a view in from the side the user swiped toward, fading in. */
+    private void slideIn(View view, int direction) {
+        float width = view.getWidth() > 0
+                ? view.getWidth()
+                : getResources().getDisplayMetrics().widthPixels;
+        view.setTranslationX(direction > 0 ? width : -width);
+        view.setAlpha(0f);
+        view.animate().translationX(0f).alpha(1f).setDuration(280).start();
+    }
+
+    /** Detects horizontal flings and turns them into verse navigation. */
+    private final class SwipeListener extends GestureDetector.SimpleOnGestureListener {
+        @Override
+        public boolean onDown(@NonNull MotionEvent e) {
+            return true; // claim the gesture so onFling is delivered
+        }
+
+        @Override
+        public boolean onFling(@Nullable MotionEvent e1, @NonNull MotionEvent e2,
+                               float velocityX, float velocityY) {
+            if (e1 == null) {
+                return false;
+            }
+            float dx = e2.getX() - e1.getX();
+            float dy = e2.getY() - e1.getY();
+            if (Math.abs(dx) > Math.abs(dy)
+                    && Math.abs(dx) > SWIPE_MIN_DISTANCE
+                    && Math.abs(velocityX) > SWIPE_MIN_VELOCITY) {
+                navigate(dx < 0 ? 1 : -1); // swipe left = next, swipe right = previous
+                return true;
+            }
+            return false;
+        }
     }
 
     private void shareVerse(Verse verse) {

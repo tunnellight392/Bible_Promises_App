@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/rootView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg_nature"
@@ -40,8 +41,9 @@
             android:textColor="@color/text_on_image_dim"
             android:textSize="11sp" />
 
-        <!-- Centered verse block -->
+        <!-- Centered verse block (animated on swipe) -->
         <LinearLayout
+            android:id="@+id/verseBlock"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
@@ -54,7 +56,7 @@
                 android:layout_marginBottom="4dp"
                 android:alpha="0.55"
                 android:fontFamily="serif"
-                android:text="“"
+                android:text="@string/decorative_quote"
                 android:textColor="@color/accent_gold"
                 android:textSize="72sp" />
 
@@ -164,6 +166,6 @@
             android:gravity="center"
             android:text="@string/scripture_attribution"
             android:textColor="@color/text_on_image_dim"
-            android:textSize="9sp" />
+            android:textSize="11sp" />
     </LinearLayout>
 </FrameLayout>
