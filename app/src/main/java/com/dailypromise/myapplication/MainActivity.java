@@ -2,10 +2,13 @@ package com.dailypromise.myapplication;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.TransitionDrawable;
 import android.os.Bundle;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.activity.result.ActivityResultLauncher;
@@ -13,16 +16,19 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import com.google.android.material.button.MaterialButton;
 
 import java.time.LocalDate;
+import java.util.Random;
 
 /**
  * Promises — shows a daily uplifting WEB verse over a nature background.
  * The verse is stable for the whole day; swipe left/right to move between
- * verses, "Another" jumps to a random one, "Browse" opens the topic list,
- * and "Share" passes the current verse to other apps.
+ * verses (changing the photo too), "Next Verse" jumps to a random verse and
+ * photo, "Browse" opens the topic list, and "Share" passes the current verse
+ * to other apps.
  */
 public class MainActivity extends AppCompatActivity {
 
@@ -30,12 +36,21 @@ public class MainActivity extends AppCompatActivity {
     private static final float SWIPE_MIN_DISTANCE = 100f;
     private static final float SWIPE_MIN_VELOCITY = 120f;
 
+    /** Nature photo backgrounds cycled through on swipe. */
+    private static final int[] BACKGROUNDS = {
+            R.drawable.nature_1, R.drawable.nature_2, R.drawable.nature_3,
+            R.drawable.nature_4, R.drawable.nature_5, R.drawable.nature_6
+    };
+
     private final VerseRepository repository = new VerseRepository();
+    private final Random random = new Random();
 
     private TextView verseText;
     private TextView verseReference;
     private View verseBlock;
+    private ImageView backgroundImage;
     private int currentIndex;
+    private int bgIndex;
 
     /** Receives the verse chosen on the Browse screen and displays it. */
     private final ActivityResultLauncher<Intent> browseLauncher = registerForActivityResult(
@@ -58,6 +73,7 @@ public class MainActivity extends AppCompatActivity {
         verseText = findViewById(R.id.verseText);
         verseReference = findViewById(R.id.verseReference);
         verseBlock = findViewById(R.id.verseBlock);
+        backgroundImage = findViewById(R.id.backgroundImage);
         MaterialButton anotherButton = findViewById(R.id.anotherButton);
         MaterialButton browseButton = findViewById(R.id.browseButton);
         MaterialButton shareButton = findViewById(R.id.shareButton);
@@ -65,9 +81,15 @@ public class MainActivity extends AppCompatActivity {
         currentIndex = repository.indexForDate(LocalDate.now());
         bindVerse(repository.get(currentIndex), false);
 
+        // Start on a photo that's stable for the day.
+        bgIndex = (int) (LocalDate.now().toEpochDay() % BACKGROUNDS.length);
+        backgroundImage.setImageResource(BACKGROUNDS[bgIndex]);
+
         anotherButton.setOnClickListener(v -> {
             currentIndex = repository.randomIndexExcluding(currentIndex);
             bindVerse(repository.get(currentIndex), true);
+            bgIndex = randomBackgroundExcluding(bgIndex);
+            crossfadeBackground(BACKGROUNDS[bgIndex]);
         });
 
         browseButton.setOnClickListener(v ->
@@ -87,6 +109,37 @@ public class MainActivity extends AppCompatActivity {
         currentIndex = ((currentIndex + direction) % size + size) % size;
         bindVerse(repository.get(currentIndex), false);
         slideIn(verseBlock, direction);
+
+        // Move to a different background photo, in the swipe direction.
+        bgIndex = ((bgIndex + direction) % BACKGROUNDS.length + BACKGROUNDS.length)
+                % BACKGROUNDS.length;
+        crossfadeBackground(BACKGROUNDS[bgIndex]);
+    }
+
+    /** A random background index different from {@code current} (when possible). */
+    private int randomBackgroundExcluding(int current) {
+        if (BACKGROUNDS.length <= 1) {
+            return 0;
+        }
+        int next;
+        do {
+            next = random.nextInt(BACKGROUNDS.length);
+        } while (next == current);
+        return next;
+    }
+
+    /** Smoothly crossfades the background photo to {@code resId}. */
+    private void crossfadeBackground(int resId) {
+        Drawable current = backgroundImage.getDrawable();
+        Drawable next = ContextCompat.getDrawable(this, resId);
+        if (current == null || next == null) {
+            backgroundImage.setImageResource(resId);
+            return;
+        }
+        TransitionDrawable transition = new TransitionDrawable(new Drawable[]{current, next});
+        transition.setCrossFadeEnabled(true);
+        backgroundImage.setImageDrawable(transition);
+        transition.startTransition(350);
     }
 
     private void bindVerse(Verse verse, boolean animate) {

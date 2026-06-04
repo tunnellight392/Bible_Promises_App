@@ -4,8 +4,24 @@
     android:id="@+id/rootView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_nature"
+    android:background="@color/sky_top"
     android:fitsSystemWindows="true">
+
+    <!-- Real nature photo background; the image is swapped on swipe. -->
+    <ImageView
+        android:id="@+id/backgroundImage"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:contentDescription="@null"
+        android:importantForAccessibility="no"
+        android:scaleType="centerCrop"
+        android:src="@drawable/nature_1" />
+
+    <!-- Readability scrim over the photo. -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/bg_scrim" />
 
     <LinearLayout
         android:layout_width="match_parent"

@@ -6,7 +6,7 @@
     <string name="verse_reference_format">— %1$s (WEB)</string>
     <!-- %1$s = verse text -->
     <string name="quoted_verse_format">“%1$s”</string>
-    <string name="another_verse">Another</string>
+    <string name="another_verse">Next Verse</string>
     <string name="browse">Browse</string>
     <string name="share">Share</string>
     <string name="share_verse_via">Share verse via</string>
