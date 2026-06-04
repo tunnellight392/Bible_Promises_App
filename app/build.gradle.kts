@@ -13,7 +13,7 @@ val keystoreProperties = Properties().apply {
 }
 
 android {
-    namespace = "com.dailypromise.myapplication"
+    namespace = "com.tunnellight.biblepromise"
     compileSdk {
         version = release(36) {
             minorApiLevel = 1
@@ -21,8 +21,9 @@ android {
     }
 
     defaultConfig {
-        applicationId = "com.dailypromise.myapplication"
+        applicationId = "com.tunnellight.biblepromise"
         minSdk = 29
+        //noinspection OldTargetApi -- intentionally targeting the current stable API (36)
         targetSdk = 36
         versionCode = 1
         versionName = "1.0"

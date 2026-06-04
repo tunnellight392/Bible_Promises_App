@@ -1,4 +1,4 @@
-package com.dailypromise.myapplication;
+package com.tunnellight.biblepromise;
 
 import android.annotation.SuppressLint;
 import android.app.PendingIntent;

@@ -1,4 +1,4 @@
-package com.dailypromise.myapplication;
+package com.tunnellight.biblepromise;
 
 /** A single Scripture passage (NIV) shown on the Promises screen. */
 final class Verse {
