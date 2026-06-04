@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -16,6 +17,7 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.PopupMenu;
 import androidx.core.content.ContextCompat;
 
 import com.google.android.material.button.MaterialButton;
@@ -77,6 +79,10 @@ public class MainActivity extends AppCompatActivity {
         MaterialButton anotherButton = findViewById(R.id.anotherButton);
         MaterialButton browseButton = findViewById(R.id.browseButton);
         MaterialButton shareButton = findViewById(R.id.shareButton);
+        ImageButton menuButton = findViewById(R.id.menuButton);
+
+        // Make sure the notification channel exists for the Settings screen.
+        NotificationScheduler.createChannel(this);
 
         currentIndex = repository.indexForDate(LocalDate.now());
         bindVerse(repository.get(currentIndex), false);
@@ -97,10 +103,26 @@ public class MainActivity extends AppCompatActivity {
 
         shareButton.setOnClickListener(v -> shareVerse(repository.get(currentIndex)));
 
+        menuButton.setOnClickListener(this::showOverflowMenu);
+
         // Swipe left/right anywhere on the screen to move between verses.
         GestureDetector gestureDetector = new GestureDetector(this, new SwipeListener());
         findViewById(R.id.rootView).setOnTouchListener(
                 (v, event) -> gestureDetector.onTouchEvent(event));
+    }
+
+    /** Shows the kebab overflow menu anchored to the menu button. */
+    private void showOverflowMenu(View anchor) {
+        PopupMenu popup = new PopupMenu(this, anchor);
+        popup.getMenuInflater().inflate(R.menu.main_overflow, popup.getMenu());
+        popup.setOnMenuItemClickListener(item -> {
+            if (item.getItemId() == R.id.action_settings) {
+                startActivity(new Intent(this, SettingsActivity.class));
+                return true;
+            }
+            return false;
+        });
+        popup.show();
     }
 
     /** Steps to the next (+1) or previous (-1) verse, wrapping around. */
