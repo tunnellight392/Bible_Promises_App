@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.ExpandableListView;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,6 +19,14 @@ public class BrowseActivity extends AppCompatActivity {
 
     /** Extra carrying the chosen verse's global index back to MainActivity. */
     static final String EXTRA_VERSE_INDEX = "com.tunnellight.biblepromise.VERSE_INDEX";
+
+    /** Tile background per topic, in the same order as VerseRepository's topics. */
+    private static final int[] TOPIC_IMAGES = {
+            R.drawable.topic_0, R.drawable.topic_1, R.drawable.topic_2, R.drawable.topic_3,
+            R.drawable.topic_4, R.drawable.topic_5, R.drawable.topic_6, R.drawable.topic_7,
+            R.drawable.topic_8, R.drawable.topic_9, R.drawable.topic_10, R.drawable.topic_11,
+            R.drawable.topic_12, R.drawable.topic_13, R.drawable.topic_14, R.drawable.topic_15
+    };
 
     private final VerseRepository repository = new VerseRepository();
 
@@ -90,6 +99,8 @@ public class BrowseActivity extends AppCompatActivity {
                     : inflater.inflate(R.layout.list_group, parent, false);
 
             Topic topic = getGroup(groupPosition);
+            ((ImageView) row.findViewById(R.id.groupImage))
+                    .setImageResource(TOPIC_IMAGES[groupPosition % TOPIC_IMAGES.length]);
             ((TextView) row.findViewById(R.id.groupName)).setText(topic.name);
             ((TextView) row.findViewById(R.id.groupCount))
                     .setText(String.valueOf(topic.verses.size()));
