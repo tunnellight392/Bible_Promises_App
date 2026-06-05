@@ -1,40 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="#1FFFFFFF"
-    android:gravity="center_vertical"
-    android:orientation="horizontal"
-    android:paddingHorizontal="24dp"
-    android:paddingVertical="16dp">
+    android:layout_height="120dp">
 
-    <TextView
-        android:id="@+id/groupName"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:fontFamily="serif"
-        android:letterSpacing="0.03"
-        android:textColor="@color/accent_gold"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        tools:ignore="HardcodedText"
-        xmlns:tools="http://schemas.android.com/tools"
-        tools:text="Anxiety &amp; Worry" />
+    <ImageView
+        android:id="@+id/groupImage"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:importantForAccessibility="no"
+        android:scaleType="centerCrop"
+        tools:src="@drawable/topic_0" />
 
-    <TextView
-        android:id="@+id/groupCount"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="12dp"
-        android:alpha="0.7"
-        android:textColor="@color/text_on_image_dim"
-        android:textSize="13sp" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/bg_tile_scrim" />
 
-    <TextView
-        android:id="@+id/groupIndicator"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/accent_gold"
-        android:textSize="16sp" />
-</LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="bottom"
+        android:orientation="horizontal"
+        android:paddingHorizontal="18dp"
+        android:paddingBottom="14dp">
+
+        <TextView
+            android:id="@+id/groupName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="serif"
+            android:letterSpacing="0.02"
+            android:shadowColor="#CC000000"
+            android:shadowDx="0"
+            android:shadowDy="2"
+            android:shadowRadius="6"
+            android:textColor="@color/text_on_image"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            tools:text="Anxiety &amp; Worry" />
+
+        <TextView
+            android:id="@+id/groupCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginEnd="12dp"
+            android:alpha="0.85"
+            android:shadowColor="#CC000000"
+            android:shadowDx="0"
+            android:shadowDy="1"
+            android:shadowRadius="4"
+            android:textColor="@color/text_on_image_dim"
+            android:textSize="13sp" />
+
+        <TextView
+            android:id="@+id/groupIndicator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:shadowColor="#CC000000"
+            android:shadowDx="0"
+            android:shadowDy="1"
+            android:shadowRadius="4"
+            android:textColor="@color/accent_gold"
+            android:textSize="16sp" />
+    </LinearLayout>
+</FrameLayout>
