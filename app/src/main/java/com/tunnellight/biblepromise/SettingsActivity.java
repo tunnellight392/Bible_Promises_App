@@ -1,7 +1,6 @@
 package com.tunnellight.biblepromise;
 
 import android.Manifest;
-import android.app.TimePickerDialog;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -15,6 +14,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
 import com.google.android.material.switchmaterial.SwitchMaterial;
+import com.google.android.material.timepicker.MaterialTimePicker;
+import com.google.android.material.timepicker.TimeFormat;
 
 import java.util.Calendar;
 
@@ -61,15 +62,24 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
     private void showTimePicker() {
-        int hour = NotificationScheduler.getHour(this);
-        int minute = NotificationScheduler.getMinute(this);
-        new TimePickerDialog(this, (view, selectedHour, selectedMinute) -> {
-            NotificationScheduler.setTime(this, selectedHour, selectedMinute);
+        int clockFormat = DateFormat.is24HourFormat(this)
+                ? TimeFormat.CLOCK_24H : TimeFormat.CLOCK_12H;
+
+        MaterialTimePicker picker = new MaterialTimePicker.Builder()
+                .setTimeFormat(clockFormat)
+                .setHour(NotificationScheduler.getHour(this))
+                .setMinute(NotificationScheduler.getMinute(this))
+                .setTitleText(R.string.notification_time)
+                .build();
+
+        picker.addOnPositiveButtonClickListener(v -> {
+            NotificationScheduler.setTime(this, picker.getHour(), picker.getMinute());
             updateTimeLabel();
             if (NotificationScheduler.isEnabled(this)) {
                 NotificationScheduler.schedule(this); // re-arm at the new time
             }
-        }, hour, minute, DateFormat.is24HourFormat(this)).show();
+        });
+        picker.show(getSupportFragmentManager(), "verse_time_picker");
     }
 
     private void updateTimeLabel() {
