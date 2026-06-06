@@ -148,30 +148,12 @@
                 style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="6dp"
                 android:layout_weight="1"
                 android:paddingHorizontal="4dp"
                 android:text="@string/browse"
                 android:textColor="@color/white"
                 android:textSize="12sp"
                 app:icon="@drawable/ic_browse"
-                app:iconPadding="4dp"
-                app:iconSize="18dp"
-                app:iconTint="@color/white"
-                app:rippleColor="@color/accent_gold"
-                app:strokeColor="@color/white" />
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/shareButton"
-                style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:paddingHorizontal="4dp"
-                android:text="@string/share"
-                android:textColor="@color/white"
-                android:textSize="12sp"
-                app:icon="@drawable/ic_share"
                 app:iconPadding="4dp"
                 app:iconSize="18dp"
                 app:iconTint="@color/white"
@@ -190,6 +172,20 @@
             android:textColor="@color/text_on_image_dim"
             android:textSize="11sp" />
     </LinearLayout>
+
+        <!-- Share the current verse -->
+        <ImageButton
+            android:id="@+id/shareButton"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_gravity="top|end"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="58dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/share"
+            android:padding="12dp"
+            android:src="@drawable/ic_share"
+            app:tint="@color/white" />
 
         <!-- Kebab / overflow menu -->
         <ImageButton

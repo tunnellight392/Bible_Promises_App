@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Random;
 
@@ -83,7 +84,7 @@ final class VerseRepository {
     }
 
     private static List<Topic> buildTopics() {
-        return Collections.unmodifiableList(Arrays.asList(
+        List<Topic> topics = new ArrayList<>(Arrays.asList(
 
                 topic("Hope",
                         new Verse("For I know the thoughts that I think toward you, says the LORD, thoughts of peace, and not of evil, to give you hope and a future.",
@@ -273,5 +274,7 @@ final class VerseRepository {
                         new Verse("Oh taste and see that the LORD is good. Blessed is the man who takes refuge in him.",
                                 "Psalm 34:8"))
         ));
+        topics.sort(Comparator.comparing(t -> t.name, String.CASE_INSENSITIVE_ORDER));
+        return Collections.unmodifiableList(topics);
     }
 }
