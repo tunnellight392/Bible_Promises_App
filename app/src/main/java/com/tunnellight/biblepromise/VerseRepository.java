@@ -28,15 +28,6 @@ final class VerseRepository {
         return TOPICS;
     }
 
-    /** The global id of the child verse at {@code (group, child)}. */
-    int globalIndex(int group, int child) {
-        int index = 0;
-        for (int g = 0; g < group; g++) {
-            index += TOPICS.get(g).verses.size();
-        }
-        return index + child;
-    }
-
     // ---- Flat access (daily verse + shuffle) -------------------------------
 
     int size() {
@@ -45,6 +36,16 @@ final class VerseRepository {
 
     Verse get(int index) {
         return ALL.get(index);
+    }
+
+    /** Every verse, in topic order; same order as the global ids. */
+    List<Verse> all() {
+        return ALL;
+    }
+
+    /** The global id of {@code verse}, or -1 if it isn't in the collection. */
+    int indexOf(Verse verse) {
+        return ALL.indexOf(verse);
     }
 
     /**
