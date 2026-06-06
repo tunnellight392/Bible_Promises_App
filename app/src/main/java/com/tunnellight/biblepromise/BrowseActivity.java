@@ -13,7 +13,9 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.PopupMenu;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 /** Lets the user browse every verse, grouped by topic, and pick one to view. */
 public class BrowseActivity extends AppCompatActivity {
@@ -31,6 +33,8 @@ public class BrowseActivity extends AppCompatActivity {
 
     private final VerseRepository repository = new VerseRepository();
 
+    private ExpandableListView list;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,16 +42,43 @@ public class BrowseActivity extends AppCompatActivity {
 
         findViewById(R.id.menuButton).setOnClickListener(this::showOverflowMenu);
 
-        ExpandableListView list = findViewById(R.id.topicList);
-        list.setAdapter(new TopicAdapter(repository.topics()));
+        list = findViewById(R.id.topicList);
 
         list.setOnChildClickListener((parent, view, groupPosition, childPosition, id) -> {
+            Verse verse = (Verse) parent.getExpandableListAdapter()
+                    .getChild(groupPosition, childPosition);
             Intent result = new Intent();
-            result.putExtra(EXTRA_VERSE_INDEX, repository.globalIndex(groupPosition, childPosition));
+            result.putExtra(EXTRA_VERSE_INDEX, repository.indexOf(verse));
             setResult(RESULT_OK, result);
             finish();
             return true;
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // Rebuild so favorites toggled on the verse screen show up here.
+        list.setAdapter(new TopicAdapter(buildTopics()));
+    }
+
+    /** The topic list shown in Browse: a Favorites group (if any) then all topics. */
+    private List<Topic> buildTopics() {
+        List<Topic> topics = new ArrayList<>();
+
+        Set<String> favorites = FavoritesStore.references(this);
+        if (!favorites.isEmpty()) {
+            List<Verse> favoriteVerses = new ArrayList<>();
+            for (Verse verse : repository.all()) {
+                if (favorites.contains(verse.reference)) {
+                    favoriteVerses.add(verse);
+                }
+            }
+            topics.add(new Topic(getString(R.string.favorites), favoriteVerses));
+        }
+
+        topics.addAll(repository.topics());
+        return topics;
     }
 
     /** Shows the kebab overflow menu anchored to the menu button. */
@@ -117,13 +148,22 @@ public class BrowseActivity extends AppCompatActivity {
 
             Topic topic = getGroup(groupPosition);
             ((ImageView) row.findViewById(R.id.groupImage))
-                    .setImageResource(TOPIC_IMAGES[groupPosition % TOPIC_IMAGES.length]);
+                    .setImageResource(imageFor(topic));
             ((TextView) row.findViewById(R.id.groupName)).setText(topic.name);
             ((TextView) row.findViewById(R.id.groupCount))
                     .setText(String.valueOf(topic.verses.size()));
             ((TextView) row.findViewById(R.id.groupIndicator))
                     .setText(isExpanded ? "▾" : "▸");
             return row;
+        }
+
+        /** Keeps each topic's tile image stable regardless of the Favorites group. */
+        private int imageFor(Topic topic) {
+            int canonical = repository.topics().indexOf(topic);
+            if (canonical < 0) {
+                return R.drawable.topic_favorites; // the synthetic Favorites group
+            }
+            return TOPIC_IMAGES[canonical % TOPIC_IMAGES.length];
         }
 
         @Override

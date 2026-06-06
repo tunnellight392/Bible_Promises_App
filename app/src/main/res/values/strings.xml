@@ -12,6 +12,9 @@
     <string name="share_verse_via">Share verse via</string>
     <string name="browse_title">Verses by Topic</string>
     <string name="browse_subtitle">Words of Encouragement</string>
+    <string name="favorites">Favorites</string>
+    <string name="add_favorite">Add to favorites</string>
+    <string name="remove_favorite">Remove from favorites</string>
     <string name="scripture_attribution">Scripture quotations are from the World English Bible (WEB). Public domain.</string>
 
     <!-- Menu / settings -->

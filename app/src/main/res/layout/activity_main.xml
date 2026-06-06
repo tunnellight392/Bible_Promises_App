@@ -41,7 +41,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="40dp"
             android:fontFamily="serif"
             android:gravity="center"
             android:letterSpacing="0.35"
@@ -172,6 +172,19 @@
             android:textColor="@color/text_on_image_dim"
             android:textSize="11sp" />
     </LinearLayout>
+
+        <!-- Favorite the current verse -->
+        <ImageButton
+            android:id="@+id/favoriteButton"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_gravity="top|end"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="106dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/add_favorite"
+            android:padding="12dp"
+            android:src="@drawable/ic_favorite_border" />
 
         <!-- Share the current verse -->
         <ImageButton

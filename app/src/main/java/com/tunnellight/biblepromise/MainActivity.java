@@ -51,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView verseReference;
     private View verseBlock;
     private ImageView backgroundImage;
+    private ImageButton favoriteButton;
     private int currentIndex;
     private int bgIndex;
 
@@ -80,6 +81,7 @@ public class MainActivity extends AppCompatActivity {
         MaterialButton browseButton = findViewById(R.id.browseButton);
         ImageButton shareButton = findViewById(R.id.shareButton);
         ImageButton menuButton = findViewById(R.id.menuButton);
+        favoriteButton = findViewById(R.id.favoriteButton);
 
         // Make sure the notification channel exists for the Settings screen.
         NotificationScheduler.createChannel(this);
@@ -102,6 +104,11 @@ public class MainActivity extends AppCompatActivity {
                 browseLauncher.launch(new Intent(this, BrowseActivity.class)));
 
         shareButton.setOnClickListener(v -> shareVerse(repository.get(currentIndex)));
+
+        favoriteButton.setOnClickListener(v -> {
+            FavoritesStore.toggle(this, repository.get(currentIndex));
+            updateFavoriteIcon();
+        });
 
         menuButton.setOnClickListener(this::showOverflowMenu);
 
@@ -167,11 +174,21 @@ public class MainActivity extends AppCompatActivity {
     private void bindVerse(Verse verse, boolean animate) {
         verseText.setText(verse.text);
         verseReference.setText(getString(R.string.verse_reference_format, verse.reference));
+        updateFavoriteIcon();
 
         if (animate) {
             crossFadeIn(verseText);
             crossFadeIn(verseReference);
         }
+    }
+
+    /** Reflects whether the current verse is favorited in the heart button. */
+    private void updateFavoriteIcon() {
+        boolean isFavorite = FavoritesStore.isFavorite(this, repository.get(currentIndex));
+        favoriteButton.setImageResource(
+                isFavorite ? R.drawable.ic_favorite : R.drawable.ic_favorite_border);
+        favoriteButton.setContentDescription(
+                getString(isFavorite ? R.string.remove_favorite : R.string.add_favorite));
     }
 
     private void crossFadeIn(View view) {
