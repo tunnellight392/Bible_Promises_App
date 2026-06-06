@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.PopupMenu;
 
 import java.util.List;
 
@@ -35,6 +36,8 @@ public class BrowseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_browse);
 
+        findViewById(R.id.menuButton).setOnClickListener(this::showOverflowMenu);
+
         ExpandableListView list = findViewById(R.id.topicList);
         list.setAdapter(new TopicAdapter(repository.topics()));
 
@@ -45,6 +48,20 @@ public class BrowseActivity extends AppCompatActivity {
             finish();
             return true;
         });
+    }
+
+    /** Shows the kebab overflow menu anchored to the menu button. */
+    private void showOverflowMenu(View anchor) {
+        PopupMenu popup = new PopupMenu(this, anchor);
+        popup.getMenuInflater().inflate(R.menu.main_overflow, popup.getMenu());
+        popup.setOnMenuItemClickListener(item -> {
+            if (item.getItemId() == R.id.action_settings) {
+                startActivity(new Intent(this, SettingsActivity.class));
+                return true;
+            }
+            return false;
+        });
+        popup.show();
     }
 
     /** Renders topics as groups and their verses as children. */

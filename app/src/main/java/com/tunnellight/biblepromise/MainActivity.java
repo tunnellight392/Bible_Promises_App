@@ -78,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
         backgroundImage = findViewById(R.id.backgroundImage);
         MaterialButton anotherButton = findViewById(R.id.anotherButton);
         MaterialButton browseButton = findViewById(R.id.browseButton);
-        MaterialButton shareButton = findViewById(R.id.shareButton);
+        ImageButton shareButton = findViewById(R.id.shareButton);
         ImageButton menuButton = findViewById(R.id.menuButton);
 
         // Make sure the notification channel exists for the Settings screen.
