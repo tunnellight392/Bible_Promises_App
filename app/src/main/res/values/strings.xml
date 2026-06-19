@@ -29,4 +29,14 @@
     <!-- Notification -->
     <string name="channel_name">Daily verse</string>
     <string name="channel_description">A daily uplifting verse delivered at your chosen time.</string>
+
+    <!-- Feedback -->
+    <string name="feedback">Feedback</string>
+    <string name="feedback_subtitle">We\'d love to hear from you. Share any feedback, request a feature, or suggest a new verse to add.</string>
+    <string name="feedback_hint">Your feedback, feature requests, or new verse suggestions…</string>
+    <string name="feedback_send">Send feedback</string>
+    <string name="feedback_email">tunnellightt392@gmail.com</string>
+    <string name="feedback_email_subject">Promises app feedback</string>
+    <string name="feedback_empty">Please enter some feedback first.</string>
+    <string name="feedback_no_email_app">No email app found to send your feedback.</string>
 </resources>
