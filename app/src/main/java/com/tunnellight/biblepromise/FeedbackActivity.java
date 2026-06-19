@@ -39,8 +39,15 @@ public class FeedbackActivity extends AppCompatActivity {
             return;
         }
 
+        // Encode the subject and body into the mailto URI itself: some email
+        // apps (e.g. Gmail) ignore EXTRA_SUBJECT/EXTRA_TEXT for ACTION_SENDTO.
+        String mailto = "mailto:" + getString(R.string.feedback_email)
+                + "?subject=" + Uri.encode(getString(R.string.feedback_email_subject))
+                + "&body=" + Uri.encode(message);
+
         Intent intent = new Intent(Intent.ACTION_SENDTO);
-        intent.setData(Uri.parse("mailto:" + getString(R.string.feedback_email)));
+        intent.setData(Uri.parse(mailto));
+        // Keep the extras too, for apps that prefer them.
         intent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.feedback_email_subject));
         intent.putExtra(Intent.EXTRA_TEXT, message);
 
