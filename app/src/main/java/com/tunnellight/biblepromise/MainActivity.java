@@ -127,6 +127,10 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(this, SettingsActivity.class));
                 return true;
             }
+            if (item.getItemId() == R.id.action_feedback) {
+                startActivity(new Intent(this, FeedbackActivity.class));
+                return true;
+            }
             return false;
         });
         popup.show();
