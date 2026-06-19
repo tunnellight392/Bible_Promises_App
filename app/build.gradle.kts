@@ -25,8 +25,8 @@ android {
         minSdk = 29
         //noinspection OldTargetApi -- intentionally targeting the current stable API (36)
         targetSdk = 36
-        versionCode = 3
-        versionName = "1.0.2"
+        versionCode = 4
+        versionName = "1.0.3"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -48,9 +48,13 @@ android {
             if (keystoreProperties.containsKey("storeFile")) {
                 signingConfig = signingConfigs.getByName("release")
             }
-            optimization {
-                enable = false
-            }
+            // Enable R8 code shrinking/optimization and resource shrinking.
+            isMinifyEnabled = true
+            isShrinkResources = true
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
         }
     }
     compileOptions {
