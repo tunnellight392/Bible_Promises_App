@@ -54,6 +54,27 @@
             android:src="@drawable/ic_more_vert" />
     </LinearLayout>
 
+    <!-- Live topic search -->
+    <EditText
+        android:id="@+id/searchInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginBottom="12dp"
+        android:background="@drawable/bg_search_box"
+        android:drawableStart="@drawable/ic_search"
+        android:drawablePadding="10dp"
+        android:hint="@string/search_topics_hint"
+        android:imeOptions="actionSearch"
+        android:inputType="text"
+        android:maxLines="1"
+        android:paddingHorizontal="14dp"
+        android:paddingVertical="12dp"
+        android:textColor="@color/text_on_image"
+        android:textColorHint="@color/text_on_image_dim"
+        android:textSize="16sp"
+        android:autofillHints="" />
+
     <ExpandableListView
         android:id="@+id/topicList"
         android:layout_width="match_parent"
@@ -65,4 +86,16 @@
         android:groupIndicator="@null"
         android:paddingBottom="16dp"
         android:scrollbarStyle="outsideOverlay" />
+
+    <TextView
+        android:id="@+id/emptyView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:padding="24dp"
+        android:text="@string/no_topics_found"
+        android:textColor="@color/text_on_image_dim"
+        android:textSize="15sp"
+        android:visibility="gone" />
 </LinearLayout>
