@@ -12,6 +12,8 @@
     <string name="share_verse_via">Share verse via</string>
     <string name="browse_title">Verses by Topic</string>
     <string name="browse_subtitle">Words of Encouragement</string>
+    <string name="search_topics_hint">Search topics…</string>
+    <string name="no_topics_found">No topics match your search.</string>
     <string name="favorites">Favorites</string>
     <string name="add_favorite">Add to favorites</string>
     <string name="remove_favorite">Remove from favorites</string>
