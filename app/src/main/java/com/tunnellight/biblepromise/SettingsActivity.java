@@ -1,6 +1,7 @@
 package com.tunnellight.biblepromise;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -59,6 +60,9 @@ public class SettingsActivity extends AppCompatActivity {
         });
 
         findViewById(R.id.timeRow).setOnClickListener(v -> showTimePicker());
+
+        findViewById(R.id.accessibilityRow).setOnClickListener(v ->
+                startActivity(new Intent(this, AccessibilityActivity.class)));
     }
 
     private void showTimePicker() {

@@ -28,6 +28,23 @@
     <string name="notification_time">Notification time</string>
     <string name="notifications_blocked">Allow notifications for Promises in system settings to receive daily verses.</string>
 
+    <!-- Accessibility -->
+    <string name="accessibility">Accessibility</string>
+    <string name="accessibility_summary">Adjust the verse text size and font.</string>
+    <string name="accessibility_subtitle">Make verses easier to read by adjusting the text size and font style.</string>
+    <string name="accessibility_preview_text">“The Lord is my shepherd; I shall not want.”</string>
+    <string name="font_size">Font size</string>
+    <string name="font_style">Font style</string>
+    <string name="font_serif">Serif</string>
+    <string name="font_sans_serif">Sans-serif</string>
+    <string name="font_monospace">Monospace</string>
+    <string-array name="font_size_labels">
+        <item>Small</item>
+        <item>Medium</item>
+        <item>Large</item>
+        <item>Extra large</item>
+    </string-array>
+
     <!-- Notification -->
     <string name="channel_name">Daily verse</string>
     <string name="channel_description">A daily uplifting verse delivered at your chosen time.</string>

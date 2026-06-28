@@ -2,9 +2,11 @@ package com.tunnellight.biblepromise;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.TransitionDrawable;
 import android.os.Bundle;
+import android.util.TypedValue;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
@@ -44,11 +46,17 @@ public class MainActivity extends AppCompatActivity {
             R.drawable.nature_4, R.drawable.nature_5, R.drawable.nature_6
     };
 
+    /** Base text sizes (sp) at the "Medium" (1.0x) accessibility scale. */
+    private static final float VERSE_BASE_SP = 26f;
+    private static final float REFERENCE_BASE_SP = 16f;
+    private static final float QUOTE_BASE_SP = 72f;
+
     private final VerseRepository repository = new VerseRepository();
     private final Random random = new Random();
 
     private TextView verseText;
     private TextView verseReference;
+    private TextView decorativeQuote;
     private View verseBlock;
     private ImageView backgroundImage;
     private ImageButton favoriteButton;
@@ -75,6 +83,7 @@ public class MainActivity extends AppCompatActivity {
 
         verseText = findViewById(R.id.verseText);
         verseReference = findViewById(R.id.verseReference);
+        decorativeQuote = findViewById(R.id.decorativeQuote);
         verseBlock = findViewById(R.id.verseBlock);
         backgroundImage = findViewById(R.id.backgroundImage);
         MaterialButton anotherButton = findViewById(R.id.anotherButton);
@@ -116,6 +125,28 @@ public class MainActivity extends AppCompatActivity {
         GestureDetector gestureDetector = new GestureDetector(this, new SwipeListener());
         findViewById(R.id.rootView).setOnTouchListener(
                 (v, event) -> gestureDetector.onTouchEvent(event));
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // Re-apply font preferences in case they changed in the Accessibility screen.
+        applyTextPreferences();
+    }
+
+    /** Applies the saved Accessibility font size and family to the verse text. */
+    private void applyTextPreferences() {
+        float scale = AccessibilityPrefs.getSizeScale(this);
+        int fontType = AccessibilityPrefs.getFontType(this);
+
+        verseText.setTypeface(AccessibilityPrefs.typeface(fontType, Typeface.ITALIC));
+        verseText.setTextSize(TypedValue.COMPLEX_UNIT_SP, VERSE_BASE_SP * scale);
+
+        verseReference.setTypeface(AccessibilityPrefs.typeface(fontType, Typeface.BOLD));
+        verseReference.setTextSize(TypedValue.COMPLEX_UNIT_SP, REFERENCE_BASE_SP * scale);
+
+        decorativeQuote.setTypeface(AccessibilityPrefs.typeface(fontType, Typeface.NORMAL));
+        decorativeQuote.setTextSize(TypedValue.COMPLEX_UNIT_SP, QUOTE_BASE_SP * scale);
     }
 
     /** Shows the kebab overflow menu anchored to the menu button. */

@@ -107,5 +107,56 @@
                 xmlns:tools="http://schemas.android.com/tools"
                 tools:text="8:00 AM" />
         </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="20dp"
+            android:background="#26FFFFFF" />
+
+        <!-- Accessibility row -->
+        <LinearLayout
+            android:id="@+id/accessibilityRow"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="?android:attr/selectableItemBackground"
+            android:baselineAligned="false"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingVertical="4dp">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/accessibility"
+                    android:textColor="@color/text_on_image"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:alpha="0.75"
+                    android:text="@string/accessibility_summary"
+                    android:textColor="@color/text_on_image_dim"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="▸"
+                android:textColor="@color/accent_gold"
+                android:textSize="18sp"
+                tools:ignore="HardcodedText"
+                xmlns:tools="http://schemas.android.com/tools" />
+        </LinearLayout>
     </LinearLayout>
 </ScrollView>
