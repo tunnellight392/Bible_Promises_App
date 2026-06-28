@@ -28,6 +28,16 @@
     <string name="notification_time">Notification time</string>
     <string name="notifications_blocked">Allow notifications for Promises in system settings to receive daily verses.</string>
 
+    <!-- Theme -->
+    <string name="theme">Theme</string>
+    <string name="theme_summary">Choose light, dark, or follow the system.</string>
+    <string name="theme_choose">Choose theme</string>
+    <string-array name="theme_options">
+        <item>System default</item>
+        <item>Light</item>
+        <item>Dark</item>
+    </string-array>
+
     <!-- Accessibility -->
     <string name="accessibility">Accessibility</string>
     <string name="accessibility_summary">Adjust the verse text size and font.</string>

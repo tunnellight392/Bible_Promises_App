@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
@@ -25,6 +26,7 @@ public class SettingsActivity extends AppCompatActivity {
 
     private SwitchMaterial notificationSwitch;
     private TextView timeValue;
+    private TextView themeValue;
 
     private final ActivityResultLauncher<String> requestNotificationPermission =
             registerForActivityResult(new ActivityResultContracts.RequestPermission(), granted -> {
@@ -43,8 +45,10 @@ public class SettingsActivity extends AppCompatActivity {
 
         notificationSwitch = findViewById(R.id.notificationSwitch);
         timeValue = findViewById(R.id.timeValue);
+        themeValue = findViewById(R.id.themeValue);
 
         updateTimeLabel();
+        updateThemeLabel();
 
         notificationSwitch.setChecked(NotificationScheduler.isEnabled(this));
         notificationSwitch.setOnCheckedChangeListener((button, isChecked) -> {
@@ -61,8 +65,31 @@ public class SettingsActivity extends AppCompatActivity {
 
         findViewById(R.id.timeRow).setOnClickListener(v -> showTimePicker());
 
+        findViewById(R.id.themeRow).setOnClickListener(v -> showThemeChooser());
+
         findViewById(R.id.accessibilityRow).setOnClickListener(v ->
                 startActivity(new Intent(this, AccessibilityActivity.class)));
+    }
+
+    /** Lets the user pick System / Light / Dark; applying recreates the activity. */
+    private void showThemeChooser() {
+        new AlertDialog.Builder(this)
+                .setTitle(R.string.theme_choose)
+                .setSingleChoiceItems(
+                        R.array.theme_options,
+                        ThemePrefs.getSelectedIndex(this),
+                        (dialog, which) -> {
+                            ThemePrefs.setMode(this, ThemePrefs.MODES[which]);
+                            updateThemeLabel();
+                            dialog.dismiss();
+                        })
+                .setNegativeButton(android.R.string.cancel, null)
+                .show();
+    }
+
+    private void updateThemeLabel() {
+        String[] options = getResources().getStringArray(R.array.theme_options);
+        themeValue.setText(options[ThemePrefs.getSelectedIndex(this)]);
     }
 
     private void showTimePicker() {
