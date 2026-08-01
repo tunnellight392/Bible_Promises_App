@@ -143,9 +143,11 @@ public class MainActivity extends AppCompatActivity {
     private void applyTextPreferences() {
         float scale = AccessibilityPrefs.getSizeScale(this);
         int fontType = AccessibilityPrefs.getFontType(this);
+        // The verse body uses a version-aware scale so Malayalam (taller script) fits.
+        float verseScale = AccessibilityPrefs.getVerseSizeScale(this, BibleVersionPrefs.get(this));
 
         verseText.setTypeface(AccessibilityPrefs.typeface(fontType, Typeface.ITALIC));
-        verseText.setTextSize(TypedValue.COMPLEX_UNIT_SP, VERSE_BASE_SP * scale);
+        verseText.setTextSize(TypedValue.COMPLEX_UNIT_SP, VERSE_BASE_SP * verseScale);
 
         verseReference.setTypeface(AccessibilityPrefs.typeface(fontType, Typeface.BOLD));
         verseReference.setTextSize(TypedValue.COMPLEX_UNIT_SP, REFERENCE_BASE_SP * scale);
