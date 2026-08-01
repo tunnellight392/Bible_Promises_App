@@ -217,7 +217,8 @@ public class MainActivity extends AppCompatActivity {
         int version = BibleVersionPrefs.get(this);
         String tag = getString(BibleVersionPrefs.tagRes(version));
         verseText.setText(verse.text(version));
-        verseReference.setText(getString(R.string.verse_reference_format, verse.reference, tag));
+        verseReference.setText(getString(R.string.verse_reference_format,
+                BibleBooks.localizedReference(verse.reference, version), tag));
         updateFavoriteIcon();
 
         if (animate) {
