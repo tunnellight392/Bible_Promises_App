@@ -275,6 +275,10 @@ final class VerseRepository {
                         new Verse("and the prayer of faith will heal him who is sick, and the Lord will raise him up. If he has committed sins, he will be forgiven.",
                                 "James 5:15")),
 
+                topic("Salvation",
+                        new Verse("There is salvation in none other, for neither is there any other name under heaven that is given among men, by which we must be saved!",
+                                "Acts 4:12")),
+
                 topic("Trust",
                         new Verse("The LORD is my shepherd; I shall lack nothing.",
                                 "Psalm 23:1"),
