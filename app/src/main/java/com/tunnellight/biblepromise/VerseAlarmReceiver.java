@@ -33,7 +33,8 @@ public class VerseAlarmReceiver extends BroadcastReceiver {
         String tag = context.getString(BibleVersionPrefs.tagRes(version));
         String verseBody = verse.text(version);
         String fullText = context.getString(R.string.quoted_verse_format, verseBody)
-                + "  " + context.getString(R.string.verse_reference_format, verse.reference, tag);
+                + "  " + context.getString(R.string.verse_reference_format,
+                        BibleBooks.localizedReference(verse.reference, version), tag);
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(
                 context, NotificationScheduler.CHANNEL_ID)

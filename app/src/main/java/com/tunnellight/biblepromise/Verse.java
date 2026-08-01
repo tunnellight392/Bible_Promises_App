@@ -25,6 +25,7 @@ final class Verse {
      * {@code tag} is the short translation label shown after the reference (e.g. "WEB").
      */
     String forSharing(int version, String tag) {
-        return "“" + text(version) + "”\n— " + reference + " (" + tag + ")";
+        return "“" + text(version) + "”\n— "
+                + BibleBooks.localizedReference(reference, version) + " (" + tag + ")";
     }
 }

@@ -236,7 +236,8 @@ public class BrowseActivity extends AppCompatActivity {
             ((TextView) row.findViewById(R.id.childText))
                     .setText(getString(R.string.quoted_verse_format, verse.text(bibleVersion)));
             ((TextView) row.findViewById(R.id.childReference))
-                    .setText(getString(R.string.verse_reference_format, verse.reference, tag));
+                    .setText(getString(R.string.verse_reference_format,
+                            BibleBooks.localizedReference(verse.reference, bibleVersion), tag));
             return row;
         }
 
