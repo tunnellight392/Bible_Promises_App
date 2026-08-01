@@ -2,8 +2,11 @@
     <string name="app_name">Promises</string>
     <string name="verse_of_the_day">Promise of the Day</string>
     <string name="decorative_quote">“</string>
-    <!-- %1$s = verse reference, e.g. "Psalm 23:1" -->
-    <string name="verse_reference_format">— %1$s (WEB)</string>
+    <!-- %1$s = verse reference, e.g. "Psalm 23:1"; %2$s = translation tag, e.g. "WEB" -->
+    <string name="verse_reference_format">— %1$s (%2$s)</string>
+    <!-- Short translation tags shown after a reference -->
+    <string name="translation_tag_web">WEB</string>
+    <string name="translation_tag_malayalam">സത്യവേദപുസ്തകം</string>
     <!-- %1$s = verse text -->
     <string name="quoted_verse_format">“%1$s”</string>
     <string name="another_verse">Next Verse</string>
@@ -18,6 +21,7 @@
     <string name="add_favorite">Add to favorites</string>
     <string name="remove_favorite">Remove from favorites</string>
     <string name="scripture_attribution">Scripture quotations are from the World English Bible (WEB). Public domain.</string>
+    <string name="scripture_attribution_malayalam">തിരുവെഴുത്തുകൾ സത്യവേദപുസ്തകത്തിൽനിന്ന് (Malayalam O.V.). പൊതുസഞ്ചയം (public domain).</string>
 
     <!-- Menu / settings -->
     <string name="menu">Menu</string>
@@ -36,6 +40,20 @@
         <item>System default</item>
         <item>Light</item>
         <item>Dark</item>
+    </string-array>
+
+    <!-- Bible version -->
+    <string name="bible_version">Bible Version</string>
+    <string name="bible_version_summary">Choose the translation used for verses.</string>
+    <string name="bible_version_choose">Choose Bible version</string>
+    <string-array name="bible_version_options">
+        <item>English — World English Bible (WEB)</item>
+        <item>Malayalam — സത്യവേദപുസ്തകം (O.V.)</item>
+    </string-array>
+    <!-- Concise labels shown as the current value on the settings row -->
+    <string-array name="bible_version_values">
+        <item>English</item>
+        <item>Malayalam</item>
     </string-array>
 
     <!-- Accessibility -->
