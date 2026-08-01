@@ -27,6 +27,7 @@ public class SettingsActivity extends AppCompatActivity {
     private SwitchMaterial notificationSwitch;
     private TextView timeValue;
     private TextView themeValue;
+    private TextView bibleVersionValue;
 
     private final ActivityResultLauncher<String> requestNotificationPermission =
             registerForActivityResult(new ActivityResultContracts.RequestPermission(), granted -> {
@@ -46,9 +47,11 @@ public class SettingsActivity extends AppCompatActivity {
         notificationSwitch = findViewById(R.id.notificationSwitch);
         timeValue = findViewById(R.id.timeValue);
         themeValue = findViewById(R.id.themeValue);
+        bibleVersionValue = findViewById(R.id.bibleVersionValue);
 
         updateTimeLabel();
         updateThemeLabel();
+        updateBibleVersionLabel();
 
         notificationSwitch.setChecked(NotificationScheduler.isEnabled(this));
         notificationSwitch.setOnCheckedChangeListener((button, isChecked) -> {
@@ -66,6 +69,8 @@ public class SettingsActivity extends AppCompatActivity {
         findViewById(R.id.timeRow).setOnClickListener(v -> showTimePicker());
 
         findViewById(R.id.themeRow).setOnClickListener(v -> showThemeChooser());
+
+        findViewById(R.id.bibleVersionRow).setOnClickListener(v -> showBibleVersionChooser());
 
         findViewById(R.id.accessibilityRow).setOnClickListener(v ->
                 startActivity(new Intent(this, AccessibilityActivity.class)));
@@ -90,6 +95,27 @@ public class SettingsActivity extends AppCompatActivity {
     private void updateThemeLabel() {
         String[] options = getResources().getStringArray(R.array.theme_options);
         themeValue.setText(options[ThemePrefs.getSelectedIndex(this)]);
+    }
+
+    /** Lets the user pick the Bible version (translation) used for verse text. */
+    private void showBibleVersionChooser() {
+        new AlertDialog.Builder(this)
+                .setTitle(R.string.bible_version_choose)
+                .setSingleChoiceItems(
+                        R.array.bible_version_options,
+                        BibleVersionPrefs.get(this),
+                        (dialog, which) -> {
+                            BibleVersionPrefs.set(this, which);
+                            updateBibleVersionLabel();
+                            dialog.dismiss();
+                        })
+                .setNegativeButton(android.R.string.cancel, null)
+                .show();
+    }
+
+    private void updateBibleVersionLabel() {
+        String[] values = getResources().getStringArray(R.array.bible_version_values);
+        bibleVersionValue.setText(values[BibleVersionPrefs.get(this)]);
     }
 
     private void showTimePicker() {

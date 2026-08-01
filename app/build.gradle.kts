@@ -25,8 +25,8 @@ android {
         minSdk = 29
         //noinspection OldTargetApi -- intentionally targeting the current stable API (36)
         targetSdk = 36
-        versionCode = 7
-        versionName = "1.2.0"
+        versionCode = 8
+        versionName = "1.3.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -60,7 +60,13 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
+        encoding = "UTF-8"
     }
+}
+
+// Ensure Java sources (which contain UTF-8 Malayalam text) compile with UTF-8.
+tasks.withType<JavaCompile>().configureEach {
+    options.encoding = "UTF-8"
 }
 
 dependencies {

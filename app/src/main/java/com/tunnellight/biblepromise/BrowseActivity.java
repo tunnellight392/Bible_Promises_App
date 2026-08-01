@@ -43,6 +43,9 @@ public class BrowseActivity extends AppCompatActivity {
     private ExpandableListView list;
     private EditText searchInput;
 
+    /** The Bible version to render verses in; refreshed in {@link #onResume()}. */
+    private int bibleVersion = BibleVersionPrefs.WEB;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,7 +84,9 @@ public class BrowseActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        // Rebuild so favorites toggled on the verse screen show up here.
+        // Rebuild so favorites toggled on the verse screen — and any Bible version
+        // change in Settings — show up here.
+        bibleVersion = BibleVersionPrefs.get(this);
         allTopics.clear();
         allTopics.addAll(buildTopics());
         showFilteredTopics(searchInput.getText().toString());
@@ -227,10 +232,11 @@ public class BrowseActivity extends AppCompatActivity {
                     : inflater.inflate(R.layout.list_child, parent, false);
 
             Verse verse = getChild(groupPosition, childPosition);
+            String tag = getString(BibleVersionPrefs.tagRes(bibleVersion));
             ((TextView) row.findViewById(R.id.childText))
-                    .setText(getString(R.string.quoted_verse_format, verse.text));
+                    .setText(getString(R.string.quoted_verse_format, verse.text(bibleVersion)));
             ((TextView) row.findViewById(R.id.childReference))
-                    .setText(getString(R.string.verse_reference_format, verse.reference));
+                    .setText(getString(R.string.verse_reference_format, verse.reference, tag));
             return row;
         }
 

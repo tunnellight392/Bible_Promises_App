@@ -162,8 +162,9 @@
                 app:strokeColor="@color/white" />
         </LinearLayout>
 
-        <!-- KJV is public domain; a short courtesy attribution. -->
+        <!-- Public-domain scripture; a short courtesy attribution (varies by version). -->
         <TextView
+            android:id="@+id/attributionText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"

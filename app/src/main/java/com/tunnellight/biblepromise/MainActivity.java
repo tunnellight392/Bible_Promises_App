@@ -57,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView verseText;
     private TextView verseReference;
     private TextView decorativeQuote;
+    private TextView attributionText;
     private View verseBlock;
     private ImageView backgroundImage;
     private ImageButton favoriteButton;
@@ -84,6 +85,7 @@ public class MainActivity extends AppCompatActivity {
         verseText = findViewById(R.id.verseText);
         verseReference = findViewById(R.id.verseReference);
         decorativeQuote = findViewById(R.id.decorativeQuote);
+        attributionText = findViewById(R.id.attributionText);
         verseBlock = findViewById(R.id.verseBlock);
         backgroundImage = findViewById(R.id.backgroundImage);
         MaterialButton anotherButton = findViewById(R.id.anotherButton);
@@ -132,6 +134,9 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
         // Re-apply font preferences in case they changed in the Accessibility screen.
         applyTextPreferences();
+        // Reflect the current Bible version (it may have changed in Settings).
+        attributionText.setText(BibleVersionPrefs.attributionRes(BibleVersionPrefs.get(this)));
+        bindVerse(repository.get(currentIndex), false);
     }
 
     /** Applies the saved Accessibility font size and family to the verse text. */
@@ -207,8 +212,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void bindVerse(Verse verse, boolean animate) {
-        verseText.setText(verse.text);
-        verseReference.setText(getString(R.string.verse_reference_format, verse.reference));
+        int version = BibleVersionPrefs.get(this);
+        String tag = getString(BibleVersionPrefs.tagRes(version));
+        verseText.setText(verse.text(version));
+        verseReference.setText(getString(R.string.verse_reference_format, verse.reference, tag));
         updateFavoriteIcon();
 
         if (animate) {
@@ -267,11 +274,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void shareVerse(Verse verse) {
+        int version = BibleVersionPrefs.get(this);
+        String tag = getString(BibleVersionPrefs.tagRes(version));
         Intent intent = new Intent(Intent.ACTION_SEND);
         intent.setType("text/plain");
         intent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.verse_of_the_day));
         intent.putExtra(Intent.EXTRA_TEXT,
-                verse.forSharing() + "\n\nvia " + getString(R.string.app_name));
+                verse.forSharing(version, tag) + "\n\nvia " + getString(R.string.app_name));
         startActivity(Intent.createChooser(intent, getString(R.string.share_verse_via)));
     }
 }

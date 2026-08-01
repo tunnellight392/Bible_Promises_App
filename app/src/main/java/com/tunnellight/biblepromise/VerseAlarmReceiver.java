@@ -29,14 +29,17 @@ public class VerseAlarmReceiver extends BroadcastReceiver {
                 context, 0, open,
                 PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
 
-        String fullText = context.getString(R.string.quoted_verse_format, verse.text)
-                + "  " + context.getString(R.string.verse_reference_format, verse.reference);
+        int version = BibleVersionPrefs.get(context);
+        String tag = context.getString(BibleVersionPrefs.tagRes(version));
+        String verseBody = verse.text(version);
+        String fullText = context.getString(R.string.quoted_verse_format, verseBody)
+                + "  " + context.getString(R.string.verse_reference_format, verse.reference, tag);
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(
                 context, NotificationScheduler.CHANNEL_ID)
                 .setSmallIcon(R.drawable.ic_notification)
                 .setContentTitle(context.getString(R.string.verse_of_the_day))
-                .setContentText(verse.text)
+                .setContentText(verseBody)
                 .setStyle(new NotificationCompat.BigTextStyle().bigText(fullText))
                 .setColor(ContextCompat.getColor(context, R.color.accent_gold))
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
