@@ -217,7 +217,10 @@ final class VerseRepository {
                                 "അനന്തരം അവന്‍ അവരോട്: നിങ്ങള്‍ ചെന്നു മൃഷ്ടാന്നഭോജനവും മധുരപാനീയവും കഴിച്ചു തങ്ങള്‍ക്കായി വട്ടംകൂട്ടിയിട്ടില്ലാത്തവര്‍ക്കു പകര്‍ച്ച കൊടുത്തയപ്പിന്‍; ഈ ദിവസം നമ്മുടെ കര്‍ത്താവിനു വിശുദ്ധമാകുന്നു; നിങ്ങള്‍ ദുഃഖിക്കരുത്; യഹോവയിങ്കലെ സന്തോഷം നിങ്ങളുടെ ബലം ആകുന്നുവല്ലോ എന്നു പറഞ്ഞു."),
                         new Verse("Psalm 27:14",
                                 "Wait for the LORD. Be strong, and let your heart take courage. Yes, wait for the LORD.",
-                                "യഹോവയിങ്കൽ പ്രത്യാശവയ്ക്കുക; ധൈര്യപ്പെട്ടിരിക്ക; നിന്‍റെ ഹൃദയം ഉറച്ചിരിക്കട്ടെ; അതേ, യഹോവയിങ്കൽ പ്രത്യാശവയ്ക്കുക.")),
+                                "യഹോവയിങ്കൽ പ്രത്യാശവയ്ക്കുക; ധൈര്യപ്പെട്ടിരിക്ക; നിന്‍റെ ഹൃദയം ഉറച്ചിരിക്കട്ടെ; അതേ, യഹോവയിങ്കൽ പ്രത്യാശവയ്ക്കുക."),
+                        new Verse("Psalm 119:165",
+                                "Those who love your law have great peace. Nothing causes them to stumble.",
+                                "നിന്‍റെ ന്യായപ്രമാണത്തോടു പ്രിയം ഉള്ളവര്‍ക്കു മഹാസമാധാനം ഉണ്ട്; അവര്‍ക്കു വീഴ്ചയ്ക്കു സംഗതി ഏതുമില്ല.")),
 
                 topic("Peace",
                         new Verse("John 14:27",
@@ -363,7 +366,10 @@ final class VerseRepository {
                 topic("Salvation",
                         new Verse("Acts 4:12",
                                 "There is salvation in none other, for neither is there any other name under heaven that is given among men, by which we must be saved!",
-                                "മറ്റൊരുത്തനിലും രക്ഷ ഇല്ല; നാം രക്ഷിക്കപ്പെടുവാന്‍ ആകാശത്തിന്‍കീഴില്‍ മനുഷ്യരുടെ ഇടയില്‍ നല്കപ്പെട്ട വേറൊരു നാമവും ഇല്ല.")),
+                                "മറ്റൊരുത്തനിലും രക്ഷ ഇല്ല; നാം രക്ഷിക്കപ്പെടുവാന്‍ ആകാശത്തിന്‍കീഴില്‍ മനുഷ്യരുടെ ഇടയില്‍ നല്കപ്പെട്ട വേറൊരു നാമവും ഇല്ല."),
+                        new Verse("2 Corinthians 5:10",
+                                "For we must all be revealed before the judgment seat of Christ; that each one may receive the things in the body, according to what he has done, whether good or bad.",
+                                "അവനവന്‍ ശരീരത്തില്‍ ഇരിക്കുമ്പോള്‍ ചെയ്തതു നല്ലതാകിലും തീയതാകിലും അതിനു തക്കവണ്ണം പ്രാപിക്കേണ്ടതിനു നാം എല്ലാവരും ക്രിസ്തുവിന്‍റെ ന്യായാസനത്തിന്‍റെ മുമ്പാകെ വെളിപ്പെടേണ്ടതാകുന്നു.")),
 
                 topic("Trust",
                         new Verse("Psalm 23:1",
