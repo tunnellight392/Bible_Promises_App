@@ -1,10 +1,13 @@
 package com.tunnellight.biblepromise;
 
 import android.annotation.SuppressLint;
+import android.content.ClipData;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.TransitionDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.GestureDetector;
@@ -21,18 +24,24 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.PopupMenu;
 import androidx.core.content.ContextCompat;
+import androidx.core.content.FileProvider;
 
 import com.google.android.material.button.MaterialButton;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.Random;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /**
  * Promises — shows a daily uplifting WEB verse over a nature background.
  * The verse is stable for the whole day; swipe left/right to move between
  * verses (changing the photo too), "Next Verse" jumps to a random verse and
- * photo, "Browse" opens the topic list, and "Share" passes the current verse
- * to other apps.
+ * photo, "Browse" opens the topic list, and "Share" sends the current verse
+ * to other apps as an image over its background photo.
  */
 public class MainActivity extends AppCompatActivity {
 
@@ -53,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
 
     private final VerseRepository repository = new VerseRepository();
     private final Random random = new Random();
+    private final ExecutorService shareExecutor = Executors.newSingleThreadExecutor();
 
     private TextView verseText;
     private TextView verseReference;
@@ -114,7 +124,7 @@ public class MainActivity extends AppCompatActivity {
         browseButton.setOnClickListener(v ->
                 browseLauncher.launch(new Intent(this, BrowseActivity.class)));
 
-        shareButton.setOnClickListener(v -> shareVerse(repository.get(currentIndex)));
+        shareButton.setOnClickListener(v -> shareVerse(repository.get(currentIndex), v));
 
         favoriteButton.setOnClickListener(v -> {
             FavoritesStore.toggle(this, repository.get(currentIndex));
@@ -127,6 +137,12 @@ public class MainActivity extends AppCompatActivity {
         GestureDetector gestureDetector = new GestureDetector(this, new SwipeListener());
         findViewById(R.id.rootView).setOnTouchListener(
                 (v, event) -> gestureDetector.onTouchEvent(event));
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        shareExecutor.shutdown();
     }
 
     @Override
@@ -276,14 +292,55 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void shareVerse(Verse verse) {
+    /**
+     * Shares the verse as an image of the card (photo + verse, as on screen),
+     * with the verse text alongside for apps that use a caption.
+     */
+    private void shareVerse(Verse verse, View shareButton) {
         int version = BibleVersionPrefs.get(this);
         String tag = getString(BibleVersionPrefs.tagRes(version));
-        Intent intent = new Intent(Intent.ACTION_SEND);
-        intent.setType("text/plain");
-        intent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.verse_of_the_day));
-        intent.putExtra(Intent.EXTRA_TEXT,
-                verse.forSharing(version, tag) + "\n\nvia " + getString(R.string.app_name));
-        startActivity(Intent.createChooser(intent, getString(R.string.share_verse_via)));
+        String text = verse.forSharing(version, tag) + "\n\nvia " + getString(R.string.app_name);
+
+        Bitmap card = ShareCardRenderer.render(this, BACKGROUNDS[bgIndex],
+                verseText, verseReference, decorativeQuote, attributionText);
+        shareButton.setEnabled(false);
+        shareExecutor.execute(() -> {
+            Uri uri = saveShareImage(card);
+            card.recycle();
+            runOnUiThread(() -> {
+                shareButton.setEnabled(true);
+                if (isFinishing() || isDestroyed()) {
+                    return;
+                }
+                Intent intent = new Intent(Intent.ACTION_SEND);
+                intent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.verse_of_the_day));
+                intent.putExtra(Intent.EXTRA_TEXT, text);
+                if (uri != null) {
+                    intent.setType("image/jpeg");
+                    intent.putExtra(Intent.EXTRA_STREAM, uri);
+                    intent.setClipData(ClipData.newRawUri(null, uri)); // chooser preview
+                    intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                } else {
+                    intent.setType("text/plain"); // fall back to text if the image failed
+                }
+                startActivity(Intent.createChooser(intent, getString(R.string.share_verse_via)));
+            });
+        });
+    }
+
+    /** Writes the card to the shared-images cache folder; null on failure. */
+    @Nullable
+    private Uri saveShareImage(Bitmap card) {
+        File dir = new File(getCacheDir(), "shared_images");
+        if (!dir.isDirectory() && !dir.mkdirs()) {
+            return null;
+        }
+        File file = new File(dir, "promise.jpg");
+        try (FileOutputStream out = new FileOutputStream(file)) {
+            card.compress(Bitmap.CompressFormat.JPEG, 92, out);
+        } catch (IOException e) {
+            return null;
+        }
+        return FileProvider.getUriForFile(this, getPackageName() + ".fileprovider", file);
     }
 }
