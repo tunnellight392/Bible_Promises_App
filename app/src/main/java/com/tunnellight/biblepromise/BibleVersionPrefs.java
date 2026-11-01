@@ -17,6 +17,8 @@ final class BibleVersionPrefs {
     static final int WEB = 0;
     /** Malayalam Sathyavedapusthakam / Old Version (public domain). */
     static final int MALAYALAM = 1;
+    /** King James Version (public domain). */
+    static final int KJV = 2;
 
     private BibleVersionPrefs() {
     }
@@ -36,15 +38,25 @@ final class BibleVersionPrefs {
 
     /** Short translation tag shown after a reference, e.g. "WEB" or "സത്യവേദപുസ്തകം". */
     static int tagRes(int version) {
-        return version == MALAYALAM
-                ? R.string.translation_tag_malayalam
-                : R.string.translation_tag_web;
+        switch (version) {
+            case MALAYALAM:
+                return R.string.translation_tag_malayalam;
+            case KJV:
+                return R.string.translation_tag_kjv;
+            default:
+                return R.string.translation_tag_web;
+        }
     }
 
     /** The scripture attribution line for the given version. */
     static int attributionRes(int version) {
-        return version == MALAYALAM
-                ? R.string.scripture_attribution_malayalam
-                : R.string.scripture_attribution;
+        switch (version) {
+            case MALAYALAM:
+                return R.string.scripture_attribution_malayalam;
+            case KJV:
+                return R.string.scripture_attribution_kjv;
+            default:
+                return R.string.scripture_attribution;
+        }
     }
 }

@@ -6,6 +6,7 @@
     <string name="verse_reference_format">— %1$s (%2$s)</string>
     <!-- Short translation tags shown after a reference -->
     <string name="translation_tag_web">WEB</string>
+    <string name="translation_tag_kjv">KJV</string>
     <string name="translation_tag_malayalam">സത്യവേദപുസ്തകം</string>
     <!-- %1$s = verse text -->
     <string name="quoted_verse_format">“%1$s”</string>
@@ -21,6 +22,7 @@
     <string name="add_favorite">Add to favorites</string>
     <string name="remove_favorite">Remove from favorites</string>
     <string name="scripture_attribution">Scripture quotations are from the World English Bible (WEB). Public domain.</string>
+    <string name="scripture_attribution_kjv">Scripture quotations from The Authorized (King James) Version. Rights in the Authorized Version in the United Kingdom are vested in the Crown. Reproduced by permission of the Crown’s patentee, Cambridge University Press.</string>
     <string name="scripture_attribution_malayalam">തിരുവെഴുത്തുകൾ സത്യവേദപുസ്തകത്തിൽനിന്ന് (Malayalam O.V.). പൊതുസഞ്ചയം (public domain).</string>
 
     <!-- Menu / settings -->
@@ -49,11 +51,13 @@
     <string-array name="bible_version_options">
         <item>English — World English Bible (WEB)</item>
         <item>Malayalam — സത്യവേദപുസ്തകം (O.V.)</item>
+        <item>English — King James Version (KJV)</item>
     </string-array>
     <!-- Concise labels shown as the current value on the settings row -->
     <string-array name="bible_version_values">
-        <item>English</item>
+        <item>English (WEB)</item>
         <item>Malayalam</item>
+        <item>English (KJV)</item>
     </string-array>
 
     <!-- Accessibility -->
