@@ -8,16 +8,26 @@ final class Verse {
     final String web;
     /** Malayalam Sathyavedapusthakam (O.V.) text. */
     final String malayalam;
+    /** King James Version (KJV) text. */
+    final String kjv;
 
-    Verse(String reference, String web, String malayalam) {
+    Verse(String reference, String web, String malayalam, String kjv) {
         this.reference = reference;
         this.web = web;
         this.malayalam = malayalam;
+        this.kjv = kjv;
     }
 
     /** The verse text in the given {@link BibleVersionPrefs} version. */
     String text(int version) {
-        return version == BibleVersionPrefs.MALAYALAM ? malayalam : web;
+        switch (version) {
+            case BibleVersionPrefs.MALAYALAM:
+                return malayalam;
+            case BibleVersionPrefs.KJV:
+                return kjv;
+            default:
+                return web;
+        }
     }
 
     /**
